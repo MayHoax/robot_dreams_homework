@@ -6,7 +6,7 @@ for i in text:
         else:
             print(i, "is odd")
     elif i.isalnum():
-        if i == i.upper():
+        if i.isupper():
             print(i, "is UPPER")
         else:
             print(i, "is lower")
