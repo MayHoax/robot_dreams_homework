@@ -76,13 +76,3 @@ while True:
             print("SORRY CAN'T UNDERSTAND")
 
 
-
-
-def decorator(func):
-    def wrapper(*args, **kwargs):
-        with open('decoratorLogs.txt', 'a') as dl:
-            dl.write(f'{func.__name__} called at {datetime.datetime.now()}\n')
-        return func(*args, **kwargs)
-    return wrapper
-
-
