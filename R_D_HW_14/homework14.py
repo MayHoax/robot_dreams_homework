@@ -19,7 +19,7 @@ def stats():
 
 
 def add(name, number):
-    phone_validator = r"^(?:\+38|38|0)\d{9,10}$"
+    phone_validator =  r'^(?:\+380|380|0)\d{9}$'
     if re.match(phone_validator, number):
         phone_book.update({name: number})
         print(f'{name} is in phone book from now')
