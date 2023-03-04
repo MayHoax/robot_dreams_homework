@@ -1,0 +1,2 @@
+SELECT age, COUNT(age) AS 'count' FROM users GROUP BY age ORDER BY count desc , age
+
