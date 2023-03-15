@@ -1,0 +1,3 @@
+select user_id,count(book_id)
+from purchase join users on purchase.user_id = users.id
+group by user_id
