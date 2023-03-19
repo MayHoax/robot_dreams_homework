@@ -1,0 +1,6 @@
+SELECT age,
+    COUNT(age) AS 'count'
+    FROM users
+    GROUP BY age
+    HAVING count > 1
+    ORDER BY count desc , age
