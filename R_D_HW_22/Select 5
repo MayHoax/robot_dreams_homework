@@ -1,3 +1,3 @@
-select author, count(purchase.book_id)
-from books join purchase on books.id = purchase.book_id
-where author = "Rowling"
+select users.id, count(book_id) as purchases_count
+from users join purchase p on users.id = p.user_id
+group by users.id
