@@ -1,0 +1,41 @@
+--
+CREATE TABLE IF NOT EXISTS users1(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name TEXT,
+    last_name TEXT,
+    age INTEGER NOT NULL );
+
+CREATE TABLE IF NOT EXISTS publishing_house1(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    rating INTEGER DEFAULT 5
+
+);
+
+
+CREATE TABLE IF NOT EXISTS books1(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    tittle TEXT,
+    author TEXT,
+    year INTEGER,
+    price INTEGER,
+    publishing_house_id INTEGER,
+    FOREIGN KEY (publishing_house_id) references publishing_house1(id)
+);
+
+CREATE TABLE IF NOT EXISTS purchases1(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER,
+    book_id INTEGER,
+    date TEXT,
+    FOREIGN KEY (user_id) references users1(id),
+    FOREIGN KEY (book_id) REFERENCES books1(id)
+);
+
+
+
+SELECT purchase.id, purchase.date, users.first_name, users.last_name FROM purchase JOIN users on user_id = users.id;
+
+
+
+
