@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Мое резюме</title>
-  <!-- Подключаем Bootstrap -->
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -15,6 +14,14 @@
     <div class="row mt-3">
       <div class="col-sm-4">
         <img src="Фото%20на%20документы%20Фото%203×4.png" class="MyPhoto" alt="Фото">
+          <div class="buttons mt-3">
+  <button type="button" class="btn btn-primary">Добавить в друзья</button>
+
+  <button type="button" class="btn btn-secondary">Написать сообщение</button>
+
+  <button type="button" class="btn btn-success">Предложить работу</button>
+              <div id="friendsCount">Количество друзей: 0</div>
+</div>
       </div>
       <div class="col-sm-8">
         <h1>Валерий Иванов</h1>
@@ -130,6 +137,16 @@
       </div>
     </div>
   </div>
-  <!-- Подключаем jQuery, Popper.js и Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVg
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script>
+  var friendsCount = Math.floor(Math.random() * 100) + 1;
+  document.getElementById("friendsCount").textContent = "Количество друзей: " + friendsCount;
+
+  var btn = document.querySelector(".btn-primary");
+  btn.addEventListener("click", function() {
+    btn.disabled = true;
+    btn.textContent = "Ожидается подтверждения";
+    friendsCount++;
+    document.getElementById("friendsCount").textContent = "Количество друзей: " + friendsCount;
+  });
+</script>
