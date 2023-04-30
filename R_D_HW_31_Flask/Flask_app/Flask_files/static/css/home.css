@@ -1,0 +1,46 @@
+body {
+    background-image: url(../images/wp7373809-cool-4k-pattern-wallpapers.jpg);
+    background-color: #f1f1f1;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+h1 {
+    color: #fff;
+    text-align: center;
+    padding: 30px 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    font-size: 48px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+li {
+    margin: 0 20px;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #ff6600;
+}
+form {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}

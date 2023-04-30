@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список книг</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/books.css') }}">
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+ <body>
+ <h3> Добро пожаловать, {{user}}</h3>
+  <h1>Список книг</h1>
+ <form action="{{ url_for('logout') }}" method="post">
+            <button class="logout-button" type="submit"><i class="material-icons">logout</i></button>
+        </form>
+  <ul>
+    {% for i in range(list_of_books|length) %}
+    <li>
+      <h2>Книга {{ i + 1 }}</h2>
+      <p>Название: <i>{{ list_of_books[i]}}</i></p>
+    </li>
+    {% endfor %}
+  </ul>
+</body>
+
+</html>
+
