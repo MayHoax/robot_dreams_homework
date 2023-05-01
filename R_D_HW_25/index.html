@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Мое резюме</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-sm-4">
+        <img src="Фото%20на%20документы%20Фото%203×4.png" class="MyPhoto" alt="Фото">
+          <div class="buttons mt-3">
+  <button type="button" class="btn btn-primary">Добавить в друзья</button>
+
+  <button type="button" class="btn btn-secondary">Написать сообщение</button>
+
+  <button type="button" class="btn btn-success">Предложить работу</button>
+              <div id="friendsCount">Количество друзей: 0</div>
+</div>
+      </div>
+      <div class="col-sm-8">
+        <h1>Валерий Иванов</h1>
+        <p>Про себя: Полон сил бабло косить, изредка спина болит</p>
+        <hr>
+        <h2>Образование</h2>
+        <ul>
+          <li>ХТК имени Кожедуба, Коммерческая деятельность, 2015-2019, </li>
+        </ul>
+        <h2>Домашние задания</h2>
+          <table class="table table-dark table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Homework</th>
+          <th scope="col">Grade</th>
+        </tr>
+      </thead>
+      <tbody>
+        </tr>
+         <tr>
+          <th scope="row">1</th>
+          <td>Базові типи даних та операції. Part 1</td>
+          <td>5</td>
+        </tr>
+         <tr>
+          <th scope="row">2</th>
+          <td>Базові типи даних та операції. Part 2</td>
+          <td>5</td>
+        </tr>
+         <tr>
+          <th scope="row">3</th>
+          <td>Цикли</td>
+          <td>5</td>
+        </tr>
+         <tr>
+          <th scope="row">4</th>
+          <td>Колекції та структури даних. Part 1</td>
+          <td>5</td>
+        </tr>
+         <tr>
+          <th scope="row">5</th>
+          <td>Рекурсія</td>
+          <td>5</td>
+        </tr>
+         <tr>
+          <th scope="row">6</th>
+          <td>Помилки та винятки</td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <th scope="row">7</th>
+          <td>Файли</td>
+          <td>5</td>
+        </tr>
+         <tr>
+          <th scope="row">8</th>
+          <td>Регулярні вирази (RegEx) в Python</td>
+          <td>5</td>
+        </tr>
+       <tr>
+          <th scope="row">9</th>
+          <td>ООП на прикладах в Python: класи і робота з ними</td>
+          <td>5</td>
+        </tr>
+       <tr>
+          <th scope="row">10</th>
+          <td>Створення бази даних</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <th scope="row">11</th>
+          <td>Базова робота з базами даних. Part 1</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <th scope="row">12</th>
+          <td>Базова робота з базами даних. Part 2</td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <th scope="row">13</th>
+          <td>Базова робота з HTML/CSS</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">14</th>
+          <td>Базовий JS</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">15</th>
+          <td>Створення веб-сторінки за допомогою JS</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">16</th>
+          <td>Інтерфейс програмування</td>
+          <td></td>
+        </tr>
+
+      </tbody>
+    </table>
+        <h2>Опыт работы</h2>
+        <ul>
+          <li>
+            <h3>eloboost24.eu</h3>
+            <p>Период работы: 2019-2021</p>
+            <p>Сфера услуг: Account boosting, couching, Champion mastering</p>
+            <p>Достижения: Подтянул английский за счёт общения с клиентами с разных стран</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script>
+  var friendsCount = Math.floor(Math.random() * 100) + 1;
+  document.getElementById("friendsCount").textContent = "Количество друзей: " + friendsCount;
+
+  var btn = document.querySelector(".btn-primary");
+  btn.addEventListener("click", function() {
+    btn.disabled = true;
+    btn.textContent = "Ожидается подтверждения";
+    friendsCount++;
+    document.getElementById("friendsCount").textContent = "Количество друзей: " + friendsCount;
+  });
+</script>
