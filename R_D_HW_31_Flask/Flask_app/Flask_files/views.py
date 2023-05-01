@@ -1,21 +1,28 @@
 from Flask_files import app
 import random, re
 import werkzeug.exceptions
-from flask import request, redirect, url_for, abort
+from flask import request, redirect, url_for, abort, render_template, session
 from markupsafe import escape
 
+
+app.secret_key = b'j33d0s'
 
 
 @app.route("/")
 def home():
-    return """
-        <ul>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/users">Users</a></li>
-            <li><a href="/books">Books</a></li>
-            <li><a href="/params">Param</a></li>
-        </ul>
-    """
+    current = session.get('user')
+    if current:
+        return render_template('home.html', name=current)
+    else:
+        return redirect(url_for('login'))
+
+
+
+
+
+
+
+
 
 # ----------------- USERS & USERS/ID routes -------------------
 List_of_names = ['Alexei', 'Catherine', 'Ivan', 'Anna', 'Dmitry', 'Marina', 'Sergey', 'Julia',
@@ -26,18 +33,34 @@ List_of_names = ['Alexei', 'Catherine', 'Ivan', 'Anna', 'Dmitry', 'Marina', 'Ser
 
 @app.get('/users')
 def users():
-    random_names = []
-    for i in range(random.randint(1, 50)):
-        random_names.append(random.choice(List_of_names))
-    return random_names
+    current = session.get('user')
+    if current:
+        random_names = []
+        for i in range(random.randint(1, 50)):
+            random_names.append(random.choice(List_of_names))
+        return render_template("users.html", content=random_names, user=current)
+    else:
+        return redirect(url_for('login'))
 
 
 @app.get('/users/<int:user_id>')
 def get_user_id(user_id):
-    if user_id % 2 == 0:
-        return f"<div>User id is {user_id}</div>", 200
+    current = session.get('user')
+    if current:
+        if user_id % 2 == 0:
+            return render_template('users_id.html', user_id=user_id, user=current)
+        else:
+            return 'Not found', abort(404)
     else:
-        return 'Not found', abort(404)
+        return redirect(url_for('login'))
+
+
+
+
+
+
+
+
 
 
 # ------------------BOOKS & BOOKS/TITLE routes---------------
@@ -51,31 +74,50 @@ List_of_books = ['To Kill a Mockingbird', 'The Great Gatsby', '1984', 'Pride and
 
 @app.get('/books')
 def books():
-    html_ul = '<ul>'
-    for i in range(random.randint(1, 50)):
-        html_ul += f'<li> {random.choice(List_of_books)} </li>'
-    html_ul += '</ul>'
-    return f'<div style=background red>{html_ul}</div>'
-
+    current = session.get('user')
+    if current:
+        random_books_list = []
+        for i in range(random.randint(1, 50)):
+            random_books_list += {random.choice(List_of_books)}
+        return render_template("books.html", list_of_books= random_books_list, user=current)
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/books/<string:book_title>', methods=['GET'])
 def book_name(book_title):
-    return f"<h3>{book_title.title()}</h3>"
+    current = session.get('user')
+    if current:
+        return render_template("books_id.html", book_title=book_title, user=current)
+    else:
+        return redirect(url_for('login'))
+
+
+
+
+
+
 
 
 # ------------------ QUERY PARAMS ----------------------
 
 @app.get('/params')
 def get_params():
-    params = request.args
-    table = '<table><tr><th>parameter</th><th>value</th></tr>'
-    for key, value in params.items():
-        table += f'<tr><td>{key}</td><td>{value}</td></tr>'
-    table += '</table>'
-    return table
+    current = session.get('user')
+    if current:
+        params = request.args
+        return render_template("params.html", param=params, user=current)
+    else:
+        return redirect(url_for('login'))
 
 
-# ------------------ LOGIN GET&POST ----------------------
+
+
+
+
+
+
+
+# ------------------ LOGIN&LOGOUT GET&POST ----------------------
 def validate_password(password):
     # Проверка наличия как минимум одной цифры, одной большой буквы и длины не менее 8 символов
     pattern = r'^(?=.*\d)(?=.*[A-Z]).{8,}$'
@@ -89,19 +131,25 @@ def validate_password(password):
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
-        html_form = """
-           <form method=POST action='/login'>
-               <input type='string' name='username' placeholder="username" value="" />
-               <input type='password' name='password' placeholder="password" value="" />
-               <button type='submit'>Send form</button>
-           </form>
-           """
-        return html_form, 200
+        return render_template('login.html')
     elif request.method == 'POST':
         if len(request.form.get('username')) >= 5 and validate_password(request.form.get('password')):
+            username = request.form.get('username')
+            session['user'] = username
             return redirect(url_for('users'))
         else:
             return "Incorrect data", 400
+
+
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('login'))
+
+
+
+
 
 
 # ------------------ CUSTOM EXCEPTIONS ----------------------
