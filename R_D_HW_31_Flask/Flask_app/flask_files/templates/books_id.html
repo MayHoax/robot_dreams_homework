@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{{ one_book.title }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/books.css') }}">
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+
+<body>
+<form action="{{ url_for('logout') }}" method="post">
+            <button class="logout-button" type="submit"><i class="material-icons">logout</i></button>
+        </form>
+  <h2> Добро пожаловать, {{current_user}}</h2>
+  <h1>Книга: {{one_book.id}}</h1>
+  <ul>
+      <li>-->
+      <h2>{{ one_book.title }} </h2>
+      <p>  {{ one_book.author }}, {{ one_book.year }}, price: {{ one_book.price }}</p>
+    </li>
+  </ul>
+</body>
+</html>
+

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Покупки</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/purchases.css') }}">
+</head>
+<body>
+<div class="header">
+    <h1>Информация о покупках</h1>
+</div>
+<div class="content">
+    <table>
+        <thead>
+            <tr>
+                <th>Пользователь</th>
+                <th>Книга</th>
+                <th>Дата</th>
+                <th>Цена</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for purchase in purchases %}
+            <tr>
+                <td>{{ purchase.id }} {{purchase.user.first_name}}</td>
+                <td>{{ purchase.book.title }}</td>
+                <td>{{ purchase.date }}</td>
+                <td>{{ purchase.book.price }} $</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <form action="{{ url_for('purchases') }}" method="GET">
+  <label for="purchase_id">Поиск покупки по ID:</label>
+  <input type="number" id="purchase_id" name="purchase_id">
+  <button type="submit">Поиск</button>
+</form>
+</div>
+</body>
+</html>
