@@ -22,9 +22,6 @@ def purchases():
     current = session.get('user')
     if current:
         purchases_query = db.session.query(Purchase)
-        purchase_id = request.args.get('purchase_id')
-        if purchase_id:
-            purchases_query = purchases_query.filter_by(id=purchase_id)
         purchases = purchases_query.all()
         return render_template("purchases.html", purchases=purchases)
     else:
@@ -37,7 +34,6 @@ def purchase_id(purchase_id):
     current = session.get('user')
     if current:
         id_purchase = db.session.execute(db.select(Purchase).where(Purchase.id == purchase_id)).scalars()
-        print(id_purchase)
         if id_purchase:
             return render_template('purchase_id.html', purchase_id_html=id_purchase)
         else:
@@ -53,10 +49,6 @@ def users():
     if current:
         if request.method == 'GET':
             users_query = db.session.query(User)
-            user_id = request.args.get('user_id')
-            # users_info = [{'id': item.id, 'first_name': item.first_name, 'last_name': item.last_name, 'age': item.age} for item in users_query]
-            if user_id:
-                users_query = users_query.filter_by(id=user_id)
             result = users_query.all()
             return render_template("users.html", users=result, current_user=current)
         elif request.method == 'POST':
@@ -71,20 +63,6 @@ def users():
 
     else:
         return redirect(url_for('login'))
-
-    # @app.route('/purchases')
-    # def purchases():
-    #     current = session.get('user')
-    #     if current:
-    #         purchases_query = db.session.query(Purchase)
-    #         purchase_id = request.args.get('purchase_id')
-    #         if purchase_id:
-    #             purchases_query = purchases_query.filter_by(id=purchase_id)
-    #         purchases = purchases_query.all()
-    #         return render_template("purchases.html", purchases=purchases)
-    #     else:
-    #         return redirect(url_for('login'))
-
 
 @app.get('/users/<int:user_id>')
 def get_user_id(user_id):
