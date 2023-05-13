@@ -1,0 +1,42 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>User's ID</title>-->
+<!--     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--<form action="{{ url_for('logout') }}" method="post">-->
+<!--            <button class="logout-button" type="submit"><i class="material-icons">logout</i></button>-->
+<!--        </form>-->
+<!--<h3>Hello {{current_user}}</h3>-->
+<!--    <li>-->
+<!--      <h2>Пользователь </h2>-->
+<!--      <p>{{users.first_name }} {{ users.last_name }}, age: {{ users.age }}</p>-->
+<!--    </li>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Пользователь</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/users.css') }}">
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+
+<body>
+<form action="{{ url_for('logout') }}" method="post">
+            <button class="logout-button" type="submit"><i class="material-icons">logout</i></button>
+        </form>
+  <h2> Добро пожаловать, {{current_user}}</h2>
+  <h1>Пользователь: {{user_id}}</h1>
+  <ul>
+      <li>-->
+      <h2>Пользователь </h2>
+      <p>{{users.first_name }} {{ users.last_name }}, age: {{ users.age }}</p>
+    </li>
+  </ul>
+</body>
+</html>
+

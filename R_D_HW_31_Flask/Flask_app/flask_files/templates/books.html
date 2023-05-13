@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список книг</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/books.css') }}">
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+ <body>
+ <h4 class="Greeting"> Добро пожаловать, {{ current_user }}</h4>
+  <h1>Список книг</h1>
+ <form class="logout" action="{{ url_for('logout') }}" method="post">
+            <button class="logout-button" type="submit"><i class="material-icons">logout</i></button>
+        </form>
+ {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+  <ul>
+    {% for b in books %}
+    <li>
+        <p> {{ b.title }}, {{ b.author }}, year: {{ b.year }}, price: {{ b.price }}</p>
+    </li>
+    {% endfor %}
+  </ul>
+ <h3> Не можете найти желаему книгу ? Добавьте, чтобы увидеть её у нас </h3>
+ <form action="{{ url_for('books') }}" method="POST">
+  <label for="title">Название</label>
+  <input type="text" id="title" name="title" required>
+
+  <label for="author">Автор</label>
+  <input type="text" id="author" name="author" required>
+
+  <label for="year">Год</label>
+  <input type="number" id="year" name="year" required>
+
+  <label for="price">Цена</label>
+  <input type="number" id="price" name="price" required>
+
+  <button type="submit">Добавить</button>
+</form>
+</body>
+
+</html>
+
