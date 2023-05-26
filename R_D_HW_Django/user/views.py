@@ -1,9 +1,25 @@
 from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.urls import reverse
+from django.views.generic import ListView, DetailView
 from .models import User
-import json
+from .forms import UserForm
 
 
-def user(request):
-    user_query = User.objects.all().values()
-    user_json = json.dumps(list(user_query))
-    return HttpResponse(user_json)
+class UsersList(ListView):
+    model = User
+
+
+class UserDetail(DetailView):
+    model = User
+
+
+def create_user(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            user = form.save()  # Сохраняем форму и получаем объект пользователя
+            return redirect(reverse('user-detail', kwargs={'pk': user.pk}))  # Перенаправляем на страницу с ID пользователя
+    else:
+        form = UserForm()
+    return render(request, 'user/create_user.html', {'form': form})

@@ -1,14 +1,13 @@
 import json
-
 from django.http import HttpResponse
-
+from django.views import View
+from django.views.generic import ListView, DetailView
 from .models import Purchase
 
 
-# Create your views here.
+class PurchaseList(ListView):
+    model = Purchase
 
 
-def purchases(request):
-    purchase_query = Purchase.objects.all().values()
-    purchase_json = json.dumps(list(purchase_query), ensure_ascii=False, default=str)
-    return HttpResponse(purchase_json)
+class PurchaseDetail(DetailView):
+    model = Purchase
