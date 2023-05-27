@@ -1,7 +1,5 @@
-from django.http import HttpResponse
-from django.shortcuts import redirect, render
-from django.urls import reverse
-from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
 from .forms import BookForm
 from .models import Book
 
@@ -14,12 +12,16 @@ class DetailBook(DetailView):
     model = Book
 
 
-def create_book(request):
-    if request.method == 'POST':
-        form = BookForm(request.POST)
-        if form.is_valid():
-            book = form.save()
-            return redirect(reverse('detail-book', kwargs={'pk': book.pk}))
-    else:
-        form = BookForm()
-    return render(request, 'book/create_book.html', {'form': form})
+class CreateBook(CreateView):
+    model = Book
+    form_class = BookForm
+    template_name = 'book/create_book.html'
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        book = form.save()
+        return response
+
+    def get_success_url(self):
+        return reverse_lazy('book-detail', kwargs={'pk': self.object.pk})
+

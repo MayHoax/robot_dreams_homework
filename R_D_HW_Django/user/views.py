@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from django.urls import reverse
-from django.views.generic import ListView, DetailView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
 from .models import User
 from .forms import UserForm
 
@@ -14,12 +14,23 @@ class UserDetail(DetailView):
     model = User
 
 
-def create_user(request):
-    if request.method == 'POST':
-        form = UserForm(request.POST)
-        if form.is_valid():
-            user = form.save()  # Сохраняем форму и получаем объект пользователя
-            return redirect(reverse('user-detail', kwargs={'pk': user.pk}))  # Перенаправляем на страницу с ID пользователя
-    else:
-        form = UserForm()
-    return render(request, 'user/create_user.html', {'form': form})
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
+from .forms import UserForm
+from .models import User
+
+
+class CreateUser(CreateView):
+    model = User
+    form_class = UserForm
+    template_name = 'user/create_user.html'
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        user = form.save()
+        return response
+
+    def get_success_url(self):
+        return reverse_lazy('user-detail', kwargs={'pk': self.object.pk})
+
+
