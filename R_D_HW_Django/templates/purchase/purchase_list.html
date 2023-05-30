@@ -1,0 +1,5 @@
+    <div>
+        {% for purchase in object_list %}
+            User ID: {{purchase.user.id}} {{purchase.user.first_name}} Book ID: {{purchase.book.id}} {{purchase.book.title}} {{purchase.date}} <br>
+        {% endfor %}
+    </div>
